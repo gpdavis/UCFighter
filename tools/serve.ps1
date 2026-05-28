@@ -40,8 +40,10 @@ try {
         $res = $ctx.Response
         try {
             $relPath = [System.Web.HttpUtility]::UrlDecode($req.Url.AbsolutePath.TrimStart('/'))
-            if ([string]::IsNullOrEmpty($relPath) -or $relPath.EndsWith('/')) {
-                $relPath = Join-Path $relPath 'index.html'
+            if ([string]::IsNullOrEmpty($relPath)) {
+                $relPath = 'index.html'
+            } elseif ($relPath.EndsWith('/')) {
+                $relPath = $relPath + 'index.html'
             }
             $fullPath = Join-Path $Root $relPath
 
@@ -54,9 +56,12 @@ try {
                 $type = $mime[$ext]
                 if (-not $type) { $type = 'application/octet-stream' }
                 $res.ContentType = $type
-                $bytes = [System.IO.File]::ReadAllBytes($fullPath)
-                $res.ContentLength64 = $bytes.Length
-                $res.OutputStream.Write($bytes, 0, $bytes.Length)
+                $fileInfo = Get-Item -LiteralPath $fullPath
+                $res.ContentLength64 = $fileInfo.Length
+                if ($req.HttpMethod -ne 'HEAD') {
+                    $bytes = [System.IO.File]::ReadAllBytes($fullPath)
+                    $res.OutputStream.Write($bytes, 0, $bytes.Length)
+                }
             }
             Write-Host "[$($res.StatusCode)] $($req.HttpMethod) $relPath"
         } catch {
