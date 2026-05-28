@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UC Fighter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="frame">
+    <canvas id="game" width="800" height="600"></canvas>
+    <div id="loading">Loading…<div id="loadingBar"><div id="loadingFill"></div></div></div>
+  </div>
+  <div id="controls">
+    <details>
+      <summary>Controls</summary>
+      <div class="cols">
+        <div>
+          <strong>Player 1</strong>
+          <p>Move: Arrow keys<br>
+          Attack 1/2/3/4: Numpad 1/2/3/0<br>
+          Block: Numpad Decimal</p>
+        </div>
+        <div>
+          <strong>Player 2</strong>
+          <p>Move: W A D<br>
+          Attack 1/2/3/4: T Y U G<br>
+          Block: H</p>
+        </div>
+        <div>
+          <strong>System</strong>
+          <p>Confirm: Enter<br>
+          Pause/Quit: Esc</p>
+        </div>
+      </div>
+    </details>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

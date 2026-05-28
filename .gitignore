@@ -1,0 +1,8 @@
+LegacyApp/
+ghidra_project/
+ghidra_scripts/
+decompiled/
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
